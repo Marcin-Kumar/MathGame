@@ -1,8 +1,10 @@
-﻿namespace MathGame;
+﻿using System.Runtime.InteropServices;
+
+namespace MathGame;
 
 internal class GameManager
 {
-    private List<string> _gameRecord = new List<string>();
+    private List<Game> _gameRecord = new List<Game>();
 
     internal void Run()
     {
@@ -36,9 +38,8 @@ internal class GameManager
                 } while (!isPlayerGuessInteger);
                 game.setPlayerGuess(playerGuess);
                 game.CalculateResult();
-                string gameResult = game.IsPlayerGuessAccurate() ? "Correct" : "Wrong";
-                _gameRecord.Add(gameResult);
-                Console.WriteLine($"{gameResult}\n");
+                _gameRecord.Add(game);
+                Console.WriteLine($"{(game.IsPlayerGuessAccurate() ? "Correct" : "Wrong")} answer\n");
             }
             else if (game.IsEnteredOptionForHistory())
             {
@@ -48,10 +49,11 @@ internal class GameManager
                 }
                 else
                 {
-                    Console.WriteLine($"Game History\n");
-                    foreach (var item in _gameRecord)
+                    Console.WriteLine($"\nGame History\n");
+                    for (int i = 0; i < _gameRecord.Count; i++)
                     {
-                        Console.WriteLine(item);
+                        Game record = _gameRecord[i];
+                        Console.WriteLine($"Game {i + 1}. {record.GetGameQuestionWithResult()} || Provided answer {record.GetPlayerGuess()} was {(game.IsPlayerGuessAccurate() ? "Correct" : "Wrong")}.\n");
                     }
                 }
                 Thread.Sleep(1800);
@@ -80,6 +82,6 @@ internal class GameManager
         Console.WriteLine("\t+ for Addition");
         Console.WriteLine("\tH or h to view game history\n");
         Console.WriteLine("\tE or e to exit game\n");
-        Console.WriteLine("Please enter an option to start the game\n");
+        Console.Write("Please enter an option to start the game: ");
     }
 }

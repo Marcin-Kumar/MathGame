@@ -20,9 +20,13 @@ internal class Game
 
     internal void DisplayGameQuestion()
     {
-        Console.WriteLine("\nThe input should be a valid whole number");
-        Console.WriteLine($"Guess the answer {_firstValue} {_gameOperator} {_secondValue} = ");
+        Console.WriteLine("\n\nThe input should be a valid whole number");
+        Console.Write($"Guess the answer {GetGameQuestion()}");
     }
+
+    internal string GetGameQuestionWithResult() => $"{GetGameQuestion()} {_result}";
+    internal string GetGameQuestion() => $"{_firstValue} {_gameOperator} {_secondValue} = ";
+    internal int GetPlayerGuess() => _playerGuess;
 
     internal void CalculateResult()
     {
