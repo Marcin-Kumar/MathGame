@@ -8,14 +8,28 @@ internal class Game
     private const char HistoryCharacter = 'h';
     private const char MultiplicationCharacter = '*';
     private const char SubtractionCharacter = '-';
-    private int _firstValue;
     private char _gameOperator;
-    private int _playerGuess;
     private int _result;
-    private int _secondValue;
+
     internal Game(char gameOperator)
     {
         _gameOperator = gameOperator;
+    }
+
+    public int FirstValue { get; private set; }
+    public int SecondValue { get; private set; }
+    public int PlayerGuess { get; set; }
+
+    internal void CalculateResult()
+    {
+        _result = _gameOperator switch
+        {
+            MultiplicationCharacter => FirstValue * SecondValue,
+            DivisionCharacter => FirstValue / SecondValue,
+            AdditionCharacter => FirstValue + SecondValue,
+            SubtractionCharacter => FirstValue - SecondValue,
+            _ => throw new InvalidOperationException()
+        };
     }
 
     internal void DisplayGameQuestion()
@@ -24,25 +38,13 @@ internal class Game
         Console.Write($"Guess the answer {GetGameQuestion()}");
     }
 
-    internal string GetGameQuestionWithResult() => $"{GetGameQuestion()} {_result}";
-    internal string GetGameQuestion() => $"{_firstValue} {_gameOperator} {_secondValue} = ";
-    internal int GetPlayerGuess() => _playerGuess;
+    internal string GetGameQuestion() => $"{FirstValue} {_gameOperator} {SecondValue} = ";
 
-    internal void CalculateResult()
-    {
-        _result = _gameOperator switch
-        {
-            MultiplicationCharacter => _firstValue * _secondValue,
-            DivisionCharacter => _firstValue / _secondValue,
-            AdditionCharacter => _firstValue + _secondValue,
-            SubtractionCharacter => _firstValue - _secondValue,
-            _ => throw new NotImplementedException()
-        };
-    }
+    internal string GetGameQuestionWithResult() => $"{GetGameQuestion()} {_result}";
 
     internal bool IsDivision() => _gameOperator == DivisionCharacter;
 
-    internal bool IsDivisionResultInteger() => _firstValue % _secondValue == 0;
+    internal bool IsDivisionResultInteger() => FirstValue % SecondValue == 0;
 
     internal bool IsEnteredOptionABasicArithmenticOperation() => _gameOperator.Equals(MultiplicationCharacter) || _gameOperator.Equals(AdditionCharacter) || _gameOperator.Equals(SubtractionCharacter) || _gameOperator.Equals(DivisionCharacter);
 
@@ -50,16 +52,11 @@ internal class Game
 
     internal bool IsEnteredOptionToExitGame() => char.ToLower(_gameOperator).Equals(char.ToLower(ExitCharacter));
 
-    internal bool IsPlayerGuessAccurate() => _playerGuess == _result;
+    internal bool IsPlayerGuessAccurate() => PlayerGuess == _result;
 
     internal void setOperandValues(int firstValue, int secondValue)
     {
-        this._firstValue = firstValue;
-        this._secondValue = secondValue;
-    }
-
-    internal void setPlayerGuess(int playerGuess)
-    {
-        this._playerGuess = playerGuess;
+        FirstValue = firstValue;
+        SecondValue = secondValue;
     }
 }

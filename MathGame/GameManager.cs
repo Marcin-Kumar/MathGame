@@ -36,10 +36,16 @@ internal class GameManager
                     game.DisplayGameQuestion();
                     isPlayerGuessInteger = int.TryParse(Console.ReadLine(), out playerGuess);
                 } while (!isPlayerGuessInteger);
-                game.setPlayerGuess(playerGuess);
-                game.CalculateResult();
-                _gameRecord.Add(game);
-                Console.WriteLine($"{(game.IsPlayerGuessAccurate() ? "Correct" : "Wrong")} answer\n");
+                game.PlayerGuess = playerGuess;
+                try
+                {
+                    game.CalculateResult();
+                    _gameRecord.Add(game);
+                    Console.WriteLine($"{(game.IsPlayerGuessAccurate() ? "Correct" : "Wrong")} answer\n");
+                } catch(InvalidOperationException ex)
+                {
+                    Console.WriteLine($"Game encountered inconsistent state due to operator being not one of multiplication, division, subtraction or addition {ex.StackTrace}\n\n");
+                }
             }
             else if (game.IsEnteredOptionForHistory())
             {
@@ -53,7 +59,7 @@ internal class GameManager
                     for (int i = 0; i < _gameRecord.Count; i++)
                     {
                         Game record = _gameRecord[i];
-                        Console.WriteLine($"Game {i + 1}. {record.GetGameQuestionWithResult()} || Provided answer {record.GetPlayerGuess()} was {(game.IsPlayerGuessAccurate() ? "Correct" : "Wrong")}.\n");
+                        Console.WriteLine($"Game {i + 1}. {record.GetGameQuestionWithResult()} || Provided answer {record.PlayerGuess} was {(game.IsPlayerGuessAccurate() ? "Correct" : "Wrong")}.\n");
                     }
                 }
                 Thread.Sleep(1800);
