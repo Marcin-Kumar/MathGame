@@ -3,8 +3,8 @@
 [![Made with C#](https://img.shields.io/badge/Made%20with-C%23-239120.svg?style=flat-square&logo=c-sharp&logoColor=white&color=blue)](https://learn.microsoft.com/en-us/dotnet/csharp/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE.txt)
 
-A simple console-based math game to test and sharpen your arithmetic skills!  
-Built with clean, beginner-friendly C# code.
+A console-based math game to test and sharpen your arithmetic skills!  
+Built with clean, beginner-friendly C# code with proper Separation of Concerns.
 
 ---
 
@@ -19,10 +19,10 @@ Built with clean, beginner-friendly C# code.
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### Tech Stack
 
-- [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download) or newer
-- A C#-compatible IDE like [Visual Studio](https://visualstudio.microsoft.com/)
+- [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download) or newer
+- C#
 
 ### Installation
 
@@ -30,12 +30,12 @@ Built with clean, beginner-friendly C# code.
 git clone https://github.com/Marcin-Kumar/MathGame.git
 cd MathGame
 ```
-#### Open MathGame.sln in Visual Studio.
+#### Open MathGame.sln in Visual Studio, Build and run the project 
 
-#### Build and run the project.
+OR
 
-#### Running via CLI
-```bash
+#### Runn via CLI
+```cmd
 dotnet build
 dotnet run
 ```
